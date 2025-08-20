@@ -6,14 +6,14 @@ const SideBar = () => {
     const [keywords] = useState([
         "Apple", "Watch", "Fashion", "Trend", "Shoes", "Shirt"
     ])
-    const {data: products} = useGetProductsQuery()
+    const {query, setQuery, min, setMin, setMax, max, setCategory, category, setKeyword, setFilter} = usefilterContext()
+    const {data: products} = useGetProductsQuery({category})
     const categories = Array.from(new Set(products?.products?.map((product: []) => product.category)))
-
-    const {query, setQuery, min, setMin, setMax, max, category, setCategory, keyword, setKeyword, reset, setReset} = usefilterContext()
 
     const handleReset = () => {
         setQuery("")
         setCategory("")
+        setFilter("")
     }
 
   return (
