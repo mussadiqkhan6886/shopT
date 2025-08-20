@@ -1,5 +1,5 @@
 import StarIcon from '@mui/icons-material/Star';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface Props {
     id: string

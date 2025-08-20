@@ -15,7 +15,7 @@ const Products = () => {
   const filteredCat = itemsCat?.products?.filter(item => item.title.toLowerCase().includes(query.toLowerCase()))
 
   return (
-    <section className='p-2 py-5'>
+    <section className='p-2 pl-[310px] py-5'>
       <div className='flex gap-2 items-center h-15'>
         <FilterListIcon style={{cursor: "pointer"}} onClick={() => {setShowDropdown(!showDropdown)}} />
         {!showDropdown && <h3>Filter</h3>}
@@ -36,3 +36,4 @@ const Products = () => {
 }
 
 export default Products
+ 

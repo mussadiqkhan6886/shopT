@@ -17,7 +17,7 @@ const SideBar = () => {
     }
 
   return (
-    <header className="max-w-[300px] bg-gray-100 py-4 px-3 ">
+    <header className="max-w-[300px] bg-gray-100 py-4 px-3 fixed h-full ">
       <h1 className="font-bold text-2xl mb-10">shopT</h1>
       <form>
         <input className="border-gray-300 border text-gray-600 placeholder:text-gray-400 px-2 py-1 w-full outline-none" type="text" placeholder="Search Product" value={query} onChange={e => setQuery(e.target.value)}  />
