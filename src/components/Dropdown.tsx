@@ -1,14 +1,14 @@
-import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select,{ type SelectChangeEvent } from '@mui/material/Select';
+import usefilterContext from '../hooks/usefilterContext';
 
 export default function SelectSmall() {
-  const [age, setAge] = React.useState('');
+  const {filter, setFilter} = usefilterContext()
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
+    setFilter(event.target.value);
   };
 
   return (
@@ -17,15 +17,12 @@ export default function SelectSmall() {
       <Select
         labelId="demo-select-small-label"
         id="demo-select-small"
-        value={age}
+        value={filter}
         label="filter"
         onChange={handleChange}
       >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={10}>Cheap</MenuItem>
-        <MenuItem value={20}>Costly</MenuItem>
+        <MenuItem value={"asc"}>Cheap</MenuItem>
+        <MenuItem value={"desc"}>Costly</MenuItem>
       </Select>
     </FormControl>
   );

@@ -13,6 +13,8 @@ interface ContextType {
     setKeyword: React.Dispatch<React.SetStateAction<string>>
     reset: undefined
     setReset : React.Dispatch<React.SetStateAction<undefined>>
+    filter: string
+    setFilter: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const filteringContext = createContext<ContextType | null>(null)
@@ -26,8 +28,9 @@ const ContextProvider = ({children}: {children: ReactElement}) => {
     const [category, setCategory] = useState('')
     const [keyword, setKeyword] = useState('')
     const [reset, setReset] = useState()
+    const [filter, setFilter] = useState("")
 
-    return <filteringContext.Provider value={{query, setQuery, max, setMax, min, setMin, category, setCategory, keyword, setKeyword, reset,setReset}}>
+    return <filteringContext.Provider value={{query, setQuery, max, setMax, min, setMin, category, setCategory, keyword, setKeyword, reset,setReset, filter, setFilter}}>
         {children}
     </filteringContext.Provider>
 }
