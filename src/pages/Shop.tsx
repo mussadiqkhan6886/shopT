@@ -1,11 +1,18 @@
-import Products from '../components/Products'
-import SideBar from '../components/SideBar'
+import { lazy, Suspense } from 'react'
+import Loading from '../components/Loading'
+
+const Products = lazy(() => import("../components/Products"))
+const SideBar = lazy(() => import("../components/SideBar"))
 
 const Shop = () => {
   return (
     <div className='flex'>
-      <SideBar />
-      <Products />
+      <Suspense fallback={<Loading />}>
+        <SideBar />
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        <Products />
+      </Suspense>
     </div>
   )
 }

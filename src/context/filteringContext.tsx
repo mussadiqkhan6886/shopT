@@ -3,10 +3,10 @@ import { createContext, useState, type ReactElement } from "react";
 interface ContextType {
     query: string
     setQuery: React.Dispatch<React.SetStateAction<string>>
-    max: number
-    setMax: React.Dispatch<React.SetStateAction<number>>
-    min: number
-    setMin: React.Dispatch<React.SetStateAction<number>>
+    max: number | undefined
+    setMax: React.Dispatch<React.SetStateAction<number | undefined>>
+    min: number | undefined
+    setMin: React.Dispatch<React.SetStateAction<number | undefined>>
     category : string
     setCategory: React.Dispatch<React.SetStateAction<string>>
     keyword: string
@@ -23,8 +23,8 @@ export const filteringContext = createContext<ContextType | null>(null)
 const ContextProvider = ({children}: {children: ReactElement}) => {
 
     const [query, setQuery] = useState('')
-    const [max, setMax] = useState(0)
-    const [min, setMin] = useState(0)
+    const [max, setMax] = useState<number | undefined>(undefined)
+    const [min, setMin] = useState<number | undefined>(undefined)
     const [category, setCategory] = useState('')
     const [keyword, setKeyword] = useState('')
     const [reset, setReset] = useState()

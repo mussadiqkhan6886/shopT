@@ -4,16 +4,31 @@ import FilterListIcon from "@mui/icons-material/FilterList"
 import Card from "./Card"
 import Dropdown from "./Dropdown"
 import { useState } from "react"
+import Loading from "./Loading"
 
 const Products = () => {
-  const { query, category, filter } = usefilterContext()
-  const { data: items } = useGetProductsQuery({ category, filter })
+  const { query, category, filter, min, max } = usefilterContext()
+  const { data: items,  isLoading, isError } = useGetProductsQuery({ category, filter })
 
   const [showDropdown, setShowDropdown] = useState(false)
-
-  const filteredItems = items?.products?.filter((item: any) =>
-    item.title.toLowerCase().includes(query.toLowerCase())
-  )
+  const filteredItems = items?.products
+    ?.filter((item: any) => 
+      item.title.toLowerCase().includes(query.toLowerCase())
+    )
+    ?.filter((item: any) => {
+      // If min and maxPrice are set, filter by them
+      if (min !== undefined && max !== undefined) {
+        return item.price >= min && item.price <= max
+      }
+      return true // otherwise, keep all
+    })
+  
+  if(isLoading){
+    return <Loading />
+  }
+  if(isError){
+    return <h2>error</h2>
+  }
 
   return (
     <section className="p-2 pl-[310px] py-5">
