@@ -1,10 +1,10 @@
 import { useGetProductsQuery } from "../api/apiSlice"
 import usefilterContext from "../hooks/usefilterContext"
 import FilterListIcon from "@mui/icons-material/FilterList"
-import Card from "./Card"
 import Dropdown from "./Dropdown"
-import { useState } from "react"
+import { lazy, useState } from "react"
 import Loading from "./Loading"
+const Card = lazy(() => import("./Card"))
 
 const Products = () => {
   const { query, category, filter, min, max } = usefilterContext()
@@ -31,7 +31,7 @@ const Products = () => {
   }
 
   return (
-    <section className="p-2 pl-[310px] py-5">
+    <main className="p-2 pl-[310px] py-5">
       <div className="flex gap-2 items-center h-15">
         <FilterListIcon
           style={{ cursor: "pointer" }}
@@ -53,7 +53,7 @@ const Products = () => {
           />
         ))}
       </div>
-    </section>
+    </main>
   )
 }
 
