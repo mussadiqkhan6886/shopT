@@ -19,7 +19,7 @@ const Products = () => {
     )
     ?.filter((item: any) => {
       // If min and maxPrice are set, filter by them
-      if (min !== undefined && max !== undefined) {
+      if (min && max ) {
         return item.price >= min && item.price <= max
       }
       return true // otherwise, keep all
@@ -34,7 +34,7 @@ const Products = () => {
   }
 
   return (
-    <main className="p-2 pl-[310px] py-5">
+    <main className="p-2 lg:pl-[310px] sm:pl-[280px] pl-[255px] py-5">
       <div className="flex gap-2 items-center h-15">
         <FilterListIcon
           style={{ cursor: "pointer" }}
@@ -44,7 +44,7 @@ const Products = () => {
         {showDropdown && <Dropdown />}
       </div>
 
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5">
         {filteredItems?.length === 0 ? (
          <p className="text-gray-500 mt-5">No products found.</p>
       ) : (filteredItems?.map((item: any) => (

@@ -16,7 +16,7 @@ const PopularProducts = () => {
   return (
     <section className="mt-10 p-4">
       <h2 className="text-2xl font-bold mb-5">Popular Products</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {popular?.map((item: any) => (
           <Card
             key={item.id}

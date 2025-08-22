@@ -19,6 +19,8 @@ const SideBar = () => {
         setQuery("")
         setCategory("")
         setFilter("")
+        setMax("")
+        setMin("")
     }
 
     if(isLoading){
@@ -30,7 +32,7 @@ const SideBar = () => {
     }
 
   return (
-    <header className="max-w-[300px] bg-gray-100 py-4 px-3 fixed h-full overflow-scroll">
+    <header className="lg:max-w-[300px] sm:max-w-[270px] max-w-[240px] bg-gray-100 py-4 px-3 fixed h-full overflow-scroll">
       <h1 className="font-bold text-2xl mb-5">shopT</h1>
       <form>
         <input className="border-gray-300 border text-gray-600 placeholder:text-gray-400 px-2 py-1 w-full outline-none" type="text" placeholder="Search Product" value={search} onChange={e => setSearch(e.target.value)}  />
