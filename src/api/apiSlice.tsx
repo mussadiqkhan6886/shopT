@@ -62,9 +62,7 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
-    // Return the real response shape, not an array
     getProducts: builder.query<ProductResponse, ProductsQueryArg | void>({
-      // allow calling with undefined or {}
       query: (args) => {
         const { category, filter } = (args as ProductsQueryArg) ?? {};
         if (category) {
@@ -75,6 +73,7 @@ export const apiSlice = createApi({
         }
         return "/products";
       },
+      keepUnusedDataFor: 300
     }),
 
     getProductById: builder.query<Product, number>({

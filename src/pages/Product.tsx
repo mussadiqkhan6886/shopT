@@ -1,8 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useGetProductByIdQuery } from "../api/apiSlice"
 import StarIcon from "@mui/icons-material/Star"
-import PopularProducts from "../components/Popular"
 import Loading from "../components/Loading"
+import { lazy, Suspense } from "react"
+
+const PopularProducts = lazy(() => import("../components/Popular"))
 
 const Product = () => {
   const { id } = useParams()
@@ -15,7 +17,6 @@ const Product = () => {
 
   return (
     <div className="p-5">
-      {/* Top Bar */}
       <header className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">shopT</h1>
         <button
@@ -26,12 +27,9 @@ const Product = () => {
         </button>
       </header>
 
-      {/* Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Product Details */}
         <div className="lg:col-span-2 bg-white rounded-2xl shadow-md p-6">
           <div className="flex flex-col md:flex-row gap-6">
-            {/* Image */}
             <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
               <img
                 src={item.thumbnail}
@@ -40,7 +38,6 @@ const Product = () => {
               />
             </div>
 
-            {/* Info */}
             <div className="flex-1">
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">{item.title}</h2>
               <p className="text-gray-600 mb-4">{item.description}</p>
@@ -85,7 +82,6 @@ const Product = () => {
           </div>
         </div>
 
-        {/* Reviews Section */}
         <aside className="bg-white rounded-2xl shadow-md p-6">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">Customer Reviews</h3>
           {item.reviews && item.reviews.length > 0 ? (
@@ -113,7 +109,9 @@ const Product = () => {
           )}
         </aside>
       </div>
-      <PopularProducts />
+      <Suspense fallback={<Loading />} >
+        <PopularProducts />
+      </Suspense>
     </div>
   )
 }

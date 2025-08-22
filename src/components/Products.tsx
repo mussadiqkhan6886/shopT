@@ -2,7 +2,7 @@ import { useGetProductsQuery } from "../api/apiSlice"
 import usefilterContext from "../hooks/usefilterContext"
 import FilterListIcon from "@mui/icons-material/FilterList"
 import Dropdown from "./Dropdown"
-import { lazy, useState } from "react"
+import { lazy, useMemo, useState } from "react"
 import Loading from "./Loading"
 const Card = lazy(() => import("./Card"))
 
@@ -11,7 +11,9 @@ const Products = () => {
   const { data: items,  isLoading, isError } = useGetProductsQuery({ category, filter })
 
   const [showDropdown, setShowDropdown] = useState(false)
-  const filteredItems = items?.products
+
+  const filteredItems = useMemo(() => {
+    return items?.products
     ?.filter((item: any) => 
       item.title.toLowerCase().includes(query.toLowerCase())
     )
@@ -22,6 +24,7 @@ const Products = () => {
       }
       return true // otherwise, keep all
     })
+  }, [items?.products, query, min, max])
   
   if(isLoading){
     return <Loading />
@@ -42,16 +45,18 @@ const Products = () => {
       </div>
 
       <div className="grid grid-cols-4 gap-5">
-        {filteredItems?.map((item: any) => (
-          <Card
-            key={item.id}
-            id={item.id}
-            img={item.images[0]}
-            price={item.price}
-            title={item.title}
-            rating={item.rating}
-          />
-        ))}
+        {filteredItems?.length === 0 ? (
+         <p className="text-gray-500 mt-5">No products found.</p>
+      ) : (filteredItems?.map((item: any) => (
+            <Card
+              key={item.id}
+              id={item.id}
+              img={item.images[0]}
+              price={item.price}
+              title={item.title}
+              rating={item.rating}
+            />)
+          ))}
       </div>
     </main>
   )

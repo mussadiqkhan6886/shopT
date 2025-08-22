@@ -1,10 +1,19 @@
+import { useEffect, useState } from "react"
 import { useGetProductCategoriesQuery } from "../api/apiSlice"
+import useDebounce from "../hooks/useDebounce"
 import usefilterContext from "../hooks/usefilterContext"
 import Loading from "./Loading"
 
 const SideBar = () => {
     const {query, setQuery, min, setMin, setMax, max, setCategory, category, setFilter} = usefilterContext()
     const {data: categories, isLoading, isError} = useGetProductCategoriesQuery()
+    const [search, setSearch] = useState(query)
+    const debounceValue = useDebounce(search, 300)
+
+
+    useEffect(() => {
+        setQuery(debounceValue)
+    }, [debounceValue, setQuery])
 
     const handleReset = () => {
         setQuery("")
@@ -24,7 +33,7 @@ const SideBar = () => {
     <header className="max-w-[300px] bg-gray-100 py-4 px-3 fixed h-full overflow-scroll">
       <h1 className="font-bold text-2xl mb-5">shopT</h1>
       <form>
-        <input className="border-gray-300 border text-gray-600 placeholder:text-gray-400 px-2 py-1 w-full outline-none" type="text" placeholder="Search Product" value={query} onChange={e => setQuery(e.target.value)}  />
+        <input className="border-gray-300 border text-gray-600 placeholder:text-gray-400 px-2 py-1 w-full outline-none" type="text" placeholder="Search Product" value={search} onChange={e => setSearch(e.target.value)}  />
         <div className="flex gap-2 my-3">
             <input className="border-gray-300 border text-gray-600 placeholder:text-gray-400 py-1 px-2 outline-none w-full" min={0} type="number" placeholder="Max" value={max} onChange={e => setMax(Number(e.target.value))} />
             <input className="border-gray-300 border text-gray-600 placeholder:text-gray-400 py-1 px-2 outline-none w-full" min={0} type="number" placeholder="Min" value={min} onChange={e => setMin(Number(e.target.value))} />

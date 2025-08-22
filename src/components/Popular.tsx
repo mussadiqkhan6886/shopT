@@ -1,10 +1,11 @@
     import { useGetProductsQuery } from "../api/apiSlice"
 import Card from "./Card"
+import Loading from "./Loading"
 
 const PopularProducts = () => {
   const { data: items, isLoading, isError } = useGetProductsQuery({})
 
-  if (isLoading) return <h2>Loading popular products...</h2>
+  if (isLoading) return <Loading />
   if (isError) return <h2>Error fetching products</h2>
 
   // sort by rating & take top 4
